@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shake Detection Test</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #testDiv {
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            transition: background-color 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <div id="testDiv"></div>
+
+    <script>
+        const testDiv = document.getElementById('testDiv');
+        const shakeThreshold = 20; // Valor ajustado para ser mais sensível
+
+        // Event listener real para capturar o evento devicemotion
+        window.addEventListener('devicemotion', (event) => {
+            const { x, y, z } = event.accelerationIncludingGravity;
+            const acceleration = Math.sqrt(x * x + y * y + z * z);
+
+            if (acceleration > shakeThreshold) {
+                testDiv.style.backgroundColor = 'red';
+                console.log('Ah, deu certo');
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            console.log('DOM fully loaded and parsed');
+        });
+    </script>
+</body>
+</html>
